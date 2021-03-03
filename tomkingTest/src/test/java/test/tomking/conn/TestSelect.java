@@ -1,23 +1,15 @@
-package org.tomking.Tomking.conn;
+package test.tomking.conn;
 
 import com.alibaba.druid.pool.DruidPooledConnection;
-import com.alibaba.fastjson.JSON;
-import com.sun.javaws.IconUtil;
-import org.apache.commons.collections.SetUtils;
 import org.junit.Test;
 import org.tomking.Tomking.Utils.ResultSetUtils;
 import org.tomking.Tomking.config.TomkingConfig;
-import org.tomking.Tomking.pojo.Clazz;
+import com.pipihao.tomking.pojo.Clazz;
 
-import java.lang.reflect.Field;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedSet;
-import java.util.function.DoubleToIntFunction;
 
 /**
  * @author pipihao

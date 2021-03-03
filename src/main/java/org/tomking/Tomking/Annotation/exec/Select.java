@@ -11,8 +11,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Select {
 
+	/**
+	 * 查询的sql
+	 * @return
+	 */
 	String value();
-	
-	String name() default "";
 	
 }

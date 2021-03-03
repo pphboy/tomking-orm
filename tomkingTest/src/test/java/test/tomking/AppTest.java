@@ -1,4 +1,4 @@
-package org.tomking.Tomking;
+package test.tomking;
 
 
 import org.junit.Test;

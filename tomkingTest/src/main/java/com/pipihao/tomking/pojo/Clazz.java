@@ -1,4 +1,4 @@
-package org.tomking.Tomking.pojo;
+package com.pipihao.tomking.pojo;
 
 /**
  * @author pipihao
@@ -6,6 +6,15 @@ package org.tomking.Tomking.pojo;
  * @date 2021/3/2 20:15
  */
 public class Clazz {
+
+    public Clazz() {
+    }
+
+    public Clazz(Integer id, String cname) {
+        this.id = id;
+        this.cname = cname;
+    }
+
     private Integer id;
     private String cname;
 

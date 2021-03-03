@@ -1,8 +1,6 @@
-package org.tomking.Tomking.yaml;
+package test.tomking.yaml;
 
 import com.alibaba.fastjson.JSON;
-import jdk.nashorn.internal.parser.Token;
-import org.apache.commons.beanutils.BeanUtils;
 import org.junit.Test;
 import org.tomking.Tomking.config.TomkingConfig;
 import org.yaml.snakeyaml.Yaml;

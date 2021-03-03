@@ -1,18 +1,14 @@
 package org.tomking.Tomking.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.alibaba.fastjson.JSON;
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.tomking.Tomking.config.chid.DB;
+import org.tomking.Tomking.exception.TomkingFirstLoadException;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.Map;
 
 /**
  * Tomking的配置类<br>
@@ -37,6 +33,8 @@ public class TomkingConfig {
                     /*obj转成tomking*/
                     tomkingConfig = JSON.parseObject(JSON.toJSONString(obj), TomkingConfig.class);
 //                    System.out.println(tomkingConfig);
+                }else{
+                    throw new TomkingFirstLoadException("'tomking.yml' file not found. It is a main config of Tomking Frame");
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

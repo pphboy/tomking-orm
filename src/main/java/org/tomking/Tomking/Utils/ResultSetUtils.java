@@ -34,7 +34,7 @@ public class ResultSetUtils {
                 field.setAccessible(true);
                 field.set(obj,resultSet.getObject(name));
             }
-            System.out.println(resultSet.getInt("id")+"-"+resultSet.getString("cname"));
+//            System.out.println(resultSet.getInt("id")+"-"+resultSet.getString("cname"));
             list.add(obj);
         }
         return list;

@@ -1,9 +1,6 @@
-package org.tomking.Tomking.druid;
+package test.tomking.druid;
 
-import com.alibaba.druid.pool.DruidDataSourceFactory;
 import org.junit.Test;
-
-import javax.sql.DataSource;
 
 /**
  * @author pipihao

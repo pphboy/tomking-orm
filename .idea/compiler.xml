@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Tomking" />
+        <module name="tomkingTest" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Tomking" target="1.8" />
+      <module name="tomkingTest" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>
