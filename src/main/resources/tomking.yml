@@ -1,6 +1,6 @@
 
 db:
   username: root
-  password: root
+  password: 123123
   driverClassName: com.mysql.cj.jdbc.Driver
   url: jdbc:mysql://127.0.0.1:3306/basic?serverTimezone=Asia/Shanghai
