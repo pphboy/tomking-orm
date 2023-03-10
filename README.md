@@ -2,6 +2,7 @@
 
 Tomking将成为一个类似于集成SSM的框架，可以在一个项目内，完成项目搭建。这虽然不是解耦，但可以加快个人开发者的开发速度。配置文件统一，简单
 
+ Tomking-ORM 框架测试代码 网址：[tomking-orm-test-example](https://gitee.com/pphboy/tomking-orm-test-example)
 
 ### 功能表-完成进度
 
