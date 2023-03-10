@@ -17,6 +17,7 @@ import org.tomking.Tomking.Annotation.exec.Modify;
 import org.tomking.Tomking.Annotation.exec.Select;
 import org.tomking.Tomking.Annotation.mapper.Param;
 import org.tomking.Tomking.Utils.ExecuteSql;
+import org.tomking.Tomking.config.TomkingConfig;
 import org.tomking.Tomking.exception.ExecAnnotationLoadException;
 
 
@@ -28,7 +29,21 @@ public class MapperFactory {
 	 * 因为这判断这两个，如果都没有的话，或者超过了，需要报错
 	 */
 	List<Class<? extends Annotation>> execAnnotationlist = Arrays.asList(Modify.class,Select.class);
-
+	
+	/**
+	 * SQL执行器
+	 */
+	public final ExecuteSql executeSql = new ExecuteSql();
+	
+	public MapperFactory() {}
+	
+	/**
+	 * @param tomkingConfigFilePath 指定tomking的配置文件
+	 */
+	public MapperFactory(String tomkingConfigFilePath) {
+		TomkingConfig.instance(tomkingConfigFilePath);
+	}
+	
 
 	/**
 	 * 获取Mapper映射类的实例
@@ -55,11 +70,10 @@ public class MapperFactory {
 				// 获取Param，并且将Param和 SQL 的参数对上，如果对不上则报错
                 for (int i = 0; i < method.getParameters().length; i++) {
                     for(Annotation annotation: method.getParameters()[i].getAnnotations()){
-
-                        System.out.println(annotation);
                         if(annotation instanceof Param){
                             Param param = (Param) annotation;
                             /*将参数的值添加以Key:Value形式添加到内*/
+                            // 这里的数据存进去，在用的时候判断 参数是不是带点就行
                             map.put(param.value(),args[i]);
                             System.out.println("value:"+param.value() +" arg: "+args[i]);
                         }
@@ -110,12 +124,20 @@ public class MapperFactory {
 	 * @param args
 	 * @param paramArgMap
 	 * @return
+	 * @throws ClassNotFoundException 
+	 * @throws SQLException 
+	 * @throws InstantiationException 
+	 * @throws NoSuchFieldException 
+	 * @throws IllegalAccessException 
 	 */
-	public Object modify(Method method,Object[] args,Map<String,Object> paramArgMap) {
+	public Object modify(Method method,Object[] args,Map<String,Object> paramArgMap) throws ClassNotFoundException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException {
 		Modify modify = (Modify)method.getAnnotation(Modify.class);
 		System.out.println("Modify Value: "+modify.value());
+		/*返回的类型*/
+		Type genericReturnType = method.getGenericReturnType();
 		
-		return null;
+		System.out.println("modify paramArgMap"+paramArgMap);
+		return executeSql.modify(modify.value(), paramArgMap,method);
 	}
 	
 	/**
@@ -133,7 +155,7 @@ public class MapperFactory {
 	public Object select(Method method,Object[] args,Map<String,Object> paramArgMap) throws ClassNotFoundException, IllegalAccessException, NoSuchFieldException, InstantiationException, SQLException {
 		/*获取查询语句的值*/
 		Select select = (Select)method.getAnnotation(Select.class);
-		System.out.println(select.value());
+		System.out.println("select sqlStr: "+select.value());
 		/*返回的类型*/
 		Type genericReturnType = method.getGenericReturnType();
 		Class<?> generic = null;
@@ -141,22 +163,11 @@ public class MapperFactory {
 		if(genericReturnType instanceof  ParameterizedType){
 			ParameterizedType pt = (ParameterizedType) genericReturnType;
 			generic =  Class.forName(pt.getActualTypeArguments()[0].getTypeName());
-			System.out.println(generic);
+			System.out.println("select generic: "+generic);
 		}
-		System.out.println(paramArgMap);
-		return ExecuteSql.select(select.value(),paramArgMap,generic);
-	}
-	
-	/**
-	 * 
-	 * @param method mapper方法的method
-	 * @param args 参数列表
-	 * @return
-	 */
-	public Map<String,Object> bindingParamAndSqlPlaceholder(Method method, Object[] args){
-		Map<String,Object> map = new HashMap();
-		
-		return map;
+		System.out.println("select paramArgMap: "+paramArgMap);
+
+		return executeSql.select(select.value(),paramArgMap,generic,method);
 	}
 	
 }
